@@ -6,14 +6,20 @@
 //font
 @import url('https://fonts.googleapis.com/css2?family=Mingzat&family=Roboto:wght@300&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Josefin+Sans:wght@300&family=Mingzat&family=Roboto:wght@300&display=swap');
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body{
+  // height: 100vh;
+}
+
 #app {
-  font-family: 'Mingzat', sans-serif;
+  font-family: 'Arvo', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

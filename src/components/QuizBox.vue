@@ -1,143 +1,245 @@
 <template>
-    <div class="quizbox">
+    <div class="container">
         <div class="info">
             <div class="current">
-                4/10
+                Quiz: {{domandaIndex + 1}}/10
             </div>
             <div class="prize">
-                $150
+                $ 0
             </div>
             <div class="odds">
-                4,281
+                Punti: {{score}} /10
             </div>
         </div>
-        <div class="timer">
-            5
+        <div class="time">
+            30
         </div>
-        <div class="askbox">
-            <div class="tipology">
-                Technology
+        <form>
+            <div class="quizBox" v-if="domandaIndex < domande.length">
+                <label class="ask">{{ domanda.domanda }}</label>
+                <div class="answerBox" v-for="domanda of domanda.scelta" :key="domanda">
+                    <input type="radio" name="choice" v-model="risposta" :value="domanda"/>
+                    {{ domanda }}
+                </div>
+                <button :style="background" type="button" @click="submit">controlla</button>
             </div>
-            <div class="ask">
-                What was the first product launched by Apple?
+            <div v-else>
+                <button :style="background" type="button" @click="restart">rinizia</button>
             </div>
-        </div>
-        <div class="answersbox">
-            <ul>
-                <li>
-                    iPhone
-                </li>
-                <li>
-                    iPad
-                </li>
-                <li>
-                    Apple 1
-                </li>
-                <li>
-                    iPod
-                </li>
-            </ul>
-        </div>
-        <div class="credits">
-            Made by Fanini A. with VueJS
-        </div>
+        </form>
     </div>
 </template>
 
 <script>
-    export default{
-        name: 'QuizBox',
-    }
+    const domande = [
+    {
+        domanda: "Chi ha scritto l'album \"Sticky fingers\"?",
+        scelta: [
+            "The Beatles",
+            "The Doors",
+            "Rolling Stones",
+            "The Beach Boys"
+        ],
+        rispostaGiusta: "Rolling Stones",
+    },
+    {
+        domanda: "Chi ha vinto più mondiali di calcio?",
+        scelta: [
+            "Italia",
+            "Brasile",
+            "Australia",
+            "Germania"
+        ],
+        rispostaGiusta: "Brasile",
+    },
+    {
+        domanda: "Quale film venne realizzato da Walt Disney 1937?",
+        scelta: [
+            "Biancaneve",
+            "Il libro della giungla",
+            "Cenerentola",
+            "La bella e la bestia"
+        ],
+        rispostaGiusta: "Biancaneve",
+    },
+    {
+        domanda: "Vi si trova la Mole Antonelliana",
+        scelta: [
+            "Roma",
+            "Udine",
+            "Torino",
+            "Reggio Calabria"
+        ],
+        rispostaGiusta: "Torino",
+    },
+    {
+        domanda: "Il ladro protagonista del fumetto italiano",
+        scelta: [
+            "Lupin",
+            "La Banda Bassotti",
+            "Diabolik",
+            "Catwoman"
+        ],
+        rispostaGiusta: "Diabolik",
+    },
+    {
+        domanda: "Ce n'è una in Italia e una in Egitto",
+        scelta: [
+            "Forlì",
+            "Barletta",
+            "Pordenone",
+            "Alessandria"
+        ],
+        rispostaGiusta: "Alessandria",
+    },
+    {
+        domanda: "La città del Saracino",
+        scelta: [
+            "Pistoia",
+            "Arezzo",
+            "Siena",
+            "Lucca"
+        ],
+        rispostaGiusta: "Arezzo",
+    },
+    {
+        domanda: "I venti che soffiano costantemente verso l'equatore",
+        scelta: [
+            "Ponente",
+            "Maestrale",
+            "Aliseo",
+            "Libeccio"
+        ],
+        rispostaGiusta: "Aliseo",
+    },
+    {
+        domanda: "Indovinello: Più è caldo, più è fresco. Cosa è?",
+        scelta: [
+            "Motore di un veicolo",
+            "The",
+            "Uovo",
+            "Frigorifero"
+        ],
+        rispostaGiusta: "Uovo",
+    },
+    {
+        domanda: "Secondo la mitologia romana, Saturno di cosa era il Dio?",
+        scelta: [
+            "Vento",
+            "Agricoltura",
+            "Falegnameria",
+            "Fuoco"
+        ],
+        rispostaGiusta: "Agricoltura",
+    },
+    ];
+    export default {
+        name: "App",
+        data() {
+            return {
+                domande,
+                score: 0,
+                domandaIndex: 0,
+                domanda: domande[0],
+                risposta: "",
+                background:{
+                    backgroundImage: "url(https://image.api.playstation.com/vulcan/img/rnd/202111/3009/Icu3kOAJ00NPRiMtiBKVsV0z.png)",
+                }
+            };
+        },
+        methods: {
+            submit() {
+            const { risposta, domanda, domande, domandaIndex } = this;
+            if (risposta === domanda.rispostaGiusta) {
+                this.score++;
+            }
+            if (domandaIndex < domande.length) {
+                this.domandaIndex++;
+                this.domanda = { ...domande[this.domandaIndex] };
+            }
+            },
+            restart() {
+                this.domanda = domande[0];
+                this.risposta = "";
+                this.domandaIndex = 0;
+                this.score = 0;
+            },
+        },
+    };
 </script>
 
 <style lang="scss">
-    .quizbox{
+    .container{
         width: 80%;
-        height: 70%;
+        height: 60%;
         // border: 3px solid red;
         border-radius: 25px;
         background-color: #FFFFFF;
         box-shadow: 5px 5px 30px 5px blue, -5px -5px 30px 5px red;
         display: flex;
         flex-direction: column;
-        padding: 5% 1%;
+        padding: 5%;
         align-items: center;
+        justify-content: space-between;
         gap: 30px;
         .info{
-            // border: 3px solid green;
-            width: 90%;
-            // height: 8%;
+            // border: 3px solid red;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 14px;
             font-weight: 600;
+            .current{
+                width: 35%;
+                text-align: left;
+            }
+            .prize{
+                width: 30%;
+            }
+            .odds{
+                width: 35%;
+                text-align: right;
+            }
         }
-        .timer{
+        .time{
             border: 2px solid blue;
-            border-radius: 999px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 22px;
+            border-radius: 99px;
+            padding: 5px;
         }
-        .askbox{
-            // border: 3px solid green;
-            width: 90%;
-            // height: 8%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding-bottom: 30px;
-            .tipology{
-                font-size: 12px;
-                opacity: 0.7;
+        form{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            .quizBox{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+                .answerBox{
+                    text-align: center;
+                    width: 100%;
+                    display: flex;
+                    align-items: baseline;
+                    justify-content: flex-start;
+                    gap: 10px;
+                    text-align: left;
+                }
             }
             .ask{
                 line-height: 26px;
                 font-weight: 600;
-                font-size: 18px;
+                font-size: 20px;
             }
-        }
-        .answersbox{
-            // border: 3px solid green;
-            width: 90%;
-            // height: 8%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            ul{
-                list-style: none;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                gap: 20px;
-                li{
-                    // border: 1px solid black;
-                    width: 100%;
-                    height: calc(100% / 4);
-                    border-radius: 15px;
-                    box-shadow: 0 0 10px;
-                }
+            button{
+                width: 65%;
+                padding: 5px 10px;
+                border-radius: 8px;
+                border: none;
+                background-color: none;
+                text-transform: uppercase;
+                color: white;
             }
-        }
-        .credits{
-            margin-top: 20px;
-            // border: 3px solid green;
-            width: 90%;
-            font-size: 10px;
-            line-height: 18px;
-            letter-spacing: 0;
-            text-align: right;
         }
     }
 </style>

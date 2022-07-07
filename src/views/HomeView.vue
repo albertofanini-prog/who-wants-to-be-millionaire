@@ -34,9 +34,14 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px;
+    padding: 5px 0px;
     .logo{
-      height: 22%;
+      width: 140px;
+    }
+    h3{
+      color: white;
     }
   }
 </style>
