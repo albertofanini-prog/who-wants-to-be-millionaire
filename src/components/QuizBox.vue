@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="time">
-            30
+            <!-- <Countdown/> -->
         </div>
         <form>
             <div class="quizBox" v-if="domandaIndex < domande.length">
@@ -20,8 +20,8 @@
                 <div class="answerBox" v-for="domanda of domanda.scelta" :key="domanda">
                     <input type="radio" name="choice" v-model="risposta" :value="domanda"/>
                     {{ domanda }}
-                </div>
                 <button :style="background" type="button" @click="submit">controlla</button>
+                </div>
             </div>
             <div v-else>
                 <button :style="background" type="button" @click="restart">rinizia</button>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+// import Countdown from '@/components/Countdown.vue'
+
     const domande = [
     {
         domanda: "Chi ha scritto l'album \"Sticky fingers\"?",
@@ -135,6 +137,9 @@
     ];
     export default {
         name: "App",
+        components:{
+            // Countdown
+        },
         data() {
             return {
                 domande,
@@ -201,11 +206,6 @@
                 width: 35%;
                 text-align: right;
             }
-        }
-        .time{
-            border: 2px solid blue;
-            border-radius: 99px;
-            padding: 5px;
         }
         form{
             width: 100%;
