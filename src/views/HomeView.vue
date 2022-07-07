@@ -18,7 +18,7 @@ export default {
     }
   },
   components: {
-    QuizBox
+    QuizBox,
   }
 }
 </script>
